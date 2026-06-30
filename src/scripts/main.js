@@ -1,13 +1,14 @@
 'use strict';
 
-import Swiper from 'swiper';
-import 'swiper/css';
+// 1. ВИДАЛЯЄМО імпорти Swiper, оскільки ми переходимо на чистий JS + CSS Скрол
 
 const form = document.querySelector('.newsletter__form');
 const successMessage = document.querySelector('.newsletter__success');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+
+  form.reset();
 
   successMessage.classList.add('newsletter__success--visible');
 
@@ -64,31 +65,46 @@ links.forEach((link) => {
   });
 });
 
-/* =========================
-   SWIPER
-========================= */
-// eslint-disable-next-line no-unused-vars
-const swiper = new Swiper('.swiper', {
-  direction: 'horizontal',
-  loop: true,
+const content = document.querySelector('.gallery__content');
+const photos = document.querySelectorAll('.gallery__photo');
+const bullets = document.querySelectorAll('.gallery__bullet');
 
-  breakpoints: {
-    0: {
-      slidesPerView: 'auto',
-      spaceBetween: 0,
-    },
-    320: {
-      slidesPerView: 1,
-      spaceBetween: 16,
-    },
-    640: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-  },
+if (content && photos.length > 0 && bullets.length > 0) {
+  // 1. Автоматичне підсвічування кружечків
+  const observerOptions = {
+    root: content,
+    threshold: 0.5,
+  };
 
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-});
+  // eslint-disable-next-line no-undef
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const index = Array.from(photos).indexOf(entry.target);
+
+        bullets.forEach((bullet) => {
+          bullet.classList.remove('gallery__bullet--active');
+        });
+
+        if (bullets[index]) {
+          bullets[index].classList.add('gallery__bullet--active');
+        }
+      }
+    });
+  }, observerOptions);
+
+  photos.forEach((photo) => observer.observe(photo));
+
+  // 2. Плавний скрол до потрібного фото при кліку
+  bullets.forEach((bullet, index) => {
+    bullet.addEventListener('click', () => {
+      if (photos[index]) {
+        photos[index].scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'start',
+        });
+      }
+    });
+  });
+}

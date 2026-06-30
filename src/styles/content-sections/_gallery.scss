@@ -2,7 +2,6 @@
   @include page-grid;
 
   max-width: $max-content-width;
-
   margin-bottom: 100px;
 
   @include on-tablet {
@@ -45,13 +44,15 @@
       margin-inline: -34px;
     }
 
-    // Вмикаємо CSS Grid тільки для десктопу
+    // Вмикаємо CSS Grid тільки для десктопу з точними висотами рядів
     @include on-desktop {
       @include page-grid;
 
       margin-top: 56px;
-      grid-template-rows: auto auto;
       row-gap: 30px;
+
+      // Перший ряд — 600px, другий ряд — 360px
+      grid-template-rows: 600px 360px;
     }
   }
 
@@ -85,37 +86,39 @@
       width: calc((100vw - 68px - 16px - 60px) / 2);
     }
 
-    // Десктопна версія (повернення до початкової сітки макету)
+    // Десктопна версія (Ідеальний розподіл 4 + 8 та 8 + 4)
     &--photo-1 {
       @include on-desktop {
+        display: flex;
         grid-area: 1 / 1 / 1 / 5;
       }
     }
 
     &--photo-2 {
       @include on-desktop {
-        display: none;
+        display: flex;
+        grid-area: 1 / 5 / 1 / -1;
       }
     }
 
     &--photo-3 {
       @include on-desktop {
         display: flex;
-        grid-area: 1 / 5 / 1 / -1;
+        grid-area: 2 / 1 / 2 / 9;
       }
     }
 
     &--photo-4 {
       @include on-desktop {
         display: flex;
-        grid-area: 2 / 1 / 2 / 9;
+        grid-area: 2 / 9 / 2 / -1;
       }
     }
 
     &--photo-5 {
       @include on-desktop {
-        display: flex;
-        grid-area: 2 / 9 / 2 / -1;
+        // Ховаємо п'яте фото на десктопі, бо сітка вже заповнена
+        display: none !important;
       }
     }
   }
@@ -129,20 +132,39 @@
   &__carousel {
     margin-inline: auto;
     margin-top: 20px;
-
     grid-column: 1 / -1;
 
     @include on-tablet {
       grid-column: 3 / 5;
     }
 
-    @include on-desktop {
-      display: none;
+    // ХОВАЄМО КРУЖЕЧКИ: на ноутбуках та десктопах (екрани від 1024px і більше)
+    @media (min-width: 1024px) {
+      display: none !important;
     }
 
-    background-image: url(../images/icon/Group.svg);
-
-    width: 102px;
+    // Перетворюємо контейнер на флексбокс для мобільних/планшетів
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
     height: 9px;
+  }
+
+  &__bullet {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+    cursor: pointer;
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
+
+    &--active {
+      background-color: #005a43;
+      transform: scale(1.15);
+    }
   }
 }
