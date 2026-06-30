@@ -100,7 +100,7 @@
       @include on-desktop {
         display: flex;
         grid-area: 1 / 1 / 1 / 5;
-        width: auto;
+        width: auto !important;
       }
     }
 
@@ -108,7 +108,7 @@
       @include on-desktop {
         display: flex;
         grid-area: 1 / 5 / 1 / -1;
-        width: auto;
+        width: auto !important;
       }
     }
 
@@ -116,7 +116,7 @@
       @include on-desktop {
         display: flex;
         grid-area: 2 / 1 / 2 / 9;
-        width: auto;
+        width: auto !important;
       }
     }
 
@@ -124,7 +124,7 @@
       @include on-desktop {
         display: flex;
         grid-area: 2 / 9 / 2 / -1;
-        width: auto;
+        width: auto !important;
       }
     }
 
