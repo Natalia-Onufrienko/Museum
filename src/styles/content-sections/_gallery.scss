@@ -28,7 +28,7 @@
       scrollbar-width: none;
       gap: 16px;
       padding: 0 20px;
-      margin: 40px -20px 0;
+      margin: 40px 0 0;
 
       &::-webkit-scrollbar {
         display: none;
@@ -43,7 +43,7 @@
       scrollbar-width: none;
       gap: 16px;
       padding: 0 34px;
-      margin: 48px -34px 0;
+      margin: 48px 0 0;
 
       &::-webkit-scrollbar {
         display: none;
@@ -86,13 +86,13 @@
 
     // Швидка мобільна версія: 1 фото + шматок наступного
     @media (max-width: 639px) {
-      width: calc(100vw - 60px);
+      width: calc(100% - 60px);
     }
 
     // Планшетна версія: 2 фото + шматок третього
     @media (min-width: 640px) and (max-width: 1023px) {
       // (екран - бічні відступи 68px - зазор gap 16px - шматок третьої фотки 60px) / 2
-      width: calc((100vw - 68px - 16px - 60px) / 2);
+      width: calc((100% - 68px - 16px - 60px) / 2);
     }
 
     // Десктопна версія (Ідеальний розподіл 4 + 8 та 8 + 4)
