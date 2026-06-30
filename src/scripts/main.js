@@ -1,7 +1,5 @@
 'use strict';
 
-// 1. ВИДАЛЯЄМО імпорти Swiper, оскільки ми переходимо на чистий JS + CSS Скрол
-
 const form = document.querySelector('.newsletter__form');
 const successMessage = document.querySelector('.newsletter__success');
 
