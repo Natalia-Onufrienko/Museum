@@ -20,44 +20,49 @@
     grid-column: 1 / -1;
     margin-top: 40px;
 
-    // Спільна логіка скролу для мобільних та планшетів (до десктопу)
-    @media (max-width: 1023px) {
-      display: flex !important;
+    // Мобільна версія
+    @media (max-width: 639px) {
+      display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scrollbar-width: none;
       gap: 16px;
-
-      // Скрол від краю до краю екрану
-      padding-inline: 20px;
-      margin-inline: -20px;
+      padding: 0 20px;
+      margin: 40px -20px 0;
 
       &::-webkit-scrollbar {
         display: none;
       }
     }
 
-    // Специфічні зміни суто для планшету
-    @include on-tablet {
-      margin-top: 48px;
-      padding-inline: 34px;
-      margin-inline: -34px;
+    // Планшетна версія
+    @media (min-width: 640px) and (max-width: 1023px) {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      gap: 16px;
+      padding: 0 34px;
+      margin: 48px -34px 0;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
-    // Вмикаємо CSS Grid тільки для десктопу з точними висотами рядів
+    // Десктоп
     @include on-desktop {
       @include page-grid;
 
       margin-top: 56px;
       row-gap: 30px;
-
-      // Перший ряд — 600px, другий ряд — 360px
       grid-template-rows: 600px 360px;
     }
   }
 
   &__photo {
     display: flex;
+
     @include hover(scale, 1.03);
 
     // Логіка відображення карток для всього скролу (моб + планшет)
