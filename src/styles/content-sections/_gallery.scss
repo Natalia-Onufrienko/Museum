@@ -55,8 +55,12 @@
       @include page-grid;
 
       margin-top: 56px;
-      row-gap: 30px;
+      margin-inline: 0; // СКИДАЄМО негативні марджини планшету
+      width: 100%; // РОЗТЯГУЄМО на всю ширину
+      grid-template-columns: repeat(12, 1fr);
+
       grid-template-rows: 600px 360px;
+      row-gap: 30px;
     }
   }
 
