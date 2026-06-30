@@ -1,0 +1,148 @@
+.gallery {
+  @include page-grid;
+
+  max-width: $max-content-width;
+
+  margin-bottom: 100px;
+
+  @include on-tablet {
+    margin-bottom: 92px;
+  }
+
+  @include on-desktop {
+    margin-bottom: 200px;
+  }
+
+  &__title-block {
+    grid-column: 1 / -1;
+  }
+
+  &__content {
+    grid-column: 1 / -1;
+    margin-top: 40px;
+
+    // Спільна логіка скролу для мобільних та планшетів (до десктопу)
+    @media (max-width: 1023px) {
+      display: flex !important;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      gap: 16px;
+
+      // Скрол від краю до краю екрану
+      padding-inline: 20px;
+      margin-inline: -20px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    // Специфічні зміни суто для планшету
+    @include on-tablet {
+      margin-top: 48px;
+      padding-inline: 34px;
+      margin-inline: -34px;
+    }
+
+    // Вмикаємо CSS Grid тільки для десктопу
+    @include on-desktop {
+      @include page-grid;
+
+      margin-top: 56px;
+      grid-template-rows: auto auto;
+      row-gap: 30px;
+    }
+  }
+
+  &__photo {
+    display: flex;
+    @include hover(scale, 1.03);
+
+    // Логіка відображення карток для всього скролу (моб + планшет)
+    @media (max-width: 1023px) {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+
+      // Примусово показуємо абсолютно всі фото у скролі
+      &--photo-1,
+      &--photo-2,
+      &--photo-3,
+      &--photo-4,
+      &--photo-5 {
+        display: flex !important;
+      }
+    }
+
+    // Швидка мобільна версія: 1 фото + шматок наступного
+    @media (max-width: 639px) {
+      width: calc(100vw - 60px);
+    }
+
+    // Планшетна версія: 2 фото + шматок третього
+    @media (min-width: 640px) and (max-width: 1023px) {
+      // (екран - бічні відступи 68px - зазор gap 16px - шматок третьої фотки 60px) / 2
+      width: calc((100vw - 68px - 16px - 60px) / 2);
+    }
+
+    // Десктопна версія (повернення до початкової сітки макету)
+    &--photo-1 {
+      @include on-desktop {
+        grid-area: 1 / 1 / 1 / 5;
+      }
+    }
+
+    &--photo-2 {
+      @include on-desktop {
+        display: none;
+      }
+    }
+
+    &--photo-3 {
+      @include on-desktop {
+        display: flex;
+        grid-area: 1 / 5 / 1 / -1;
+      }
+    }
+
+    &--photo-4 {
+      @include on-desktop {
+        display: flex;
+        grid-area: 2 / 1 / 2 / 9;
+      }
+    }
+
+    &--photo-5 {
+      @include on-desktop {
+        display: flex;
+        grid-area: 2 / 9 / 2 / -1;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__carousel {
+    margin-inline: auto;
+    margin-top: 20px;
+
+    grid-column: 1 / -1;
+
+    @include on-tablet {
+      grid-column: 3 / 5;
+    }
+
+    @include on-desktop {
+      display: none;
+    }
+
+    background-image: url(../images/icon/Group.svg);
+
+    width: 102px;
+    height: 9px;
+  }
+}
