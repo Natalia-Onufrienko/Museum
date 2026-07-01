@@ -1,7 +1,8 @@
 .gallery {
-  @include page-grid;
-
+  // 💡 ПРИБРАЛИ @include page-grid звідси, бо галерея вже лежить всередині .page__content!
+  grid-column: 1 / -1; // Розтягуємо секцію галереї на всі 12 колонок сайту
   max-width: $max-content-width;
+  margin-inline: auto; // Центруємо галерею, якщо екран більший за макет
   margin-bottom: 100px;
 
   @include on-tablet {
@@ -20,7 +21,7 @@
     grid-column: 1 / -1;
     margin-top: 40px;
 
-    // Мобільна версія
+    // Мобільна версія (горизонтальний скрол)
     @media (max-width: 639px) {
       display: flex;
       overflow-x: auto;
@@ -28,14 +29,14 @@
       scrollbar-width: none;
       gap: 16px;
       padding: 0 20px;
-      margin: 40px 0 0;
+      margin: 40px -20px 0;
 
       &::-webkit-scrollbar {
         display: none;
       }
     }
 
-    // Планшетна версія
+    // Планшетна версія (горизонтальний скрол)
     @media (min-width: 640px) and (max-width: 1023px) {
       display: flex;
       overflow-x: auto;
@@ -43,23 +44,25 @@
       scrollbar-width: none;
       gap: 16px;
       padding: 0 34px;
-      margin: 48px 0 0;
+      margin: 48px -34px 0;
 
       &::-webkit-scrollbar {
         display: none;
       }
     }
 
+    // Десктопна версія галереї
     @include on-desktop {
       display: grid;
       grid-column: 1 / -1;
       margin-top: 56px;
-      margin-inline: 0;
-      width: 100%; // 💡 Розтягуємо на всі 12 колонок батька від краю до краю
+      margin-inline: 0; // Скидаємо від'ємні марджини планшета
+      width: 100%;
 
-      grid-template-columns: repeat(12, 1fr); // 💡 Створюємо чисті 12 колонок
+      // Створюємо чисті 12 колонок, які ідеально збігаються з .page__content
+      grid-template-columns: repeat(12, 1fr);
       grid-template-rows: 600px 360px;
-      gap: 30px;
+      gap: 30px; // Об'єднана властивість для лінтера (і row-gap, і column-gap по 30px)
     }
   }
 
@@ -68,12 +71,10 @@
 
     @include hover(scale, 1.03);
 
-    // Логіка відображення карток для всього скролу (моб + планшет)
     @media (max-width: 1023px) {
       scroll-snap-align: start;
       flex-shrink: 0;
 
-      // Примусово показуємо абсолютно всі фото у скролі
       &--photo-1,
       &--photo-2,
       &--photo-3,
@@ -83,23 +84,20 @@
       }
     }
 
-    // Швидка мобільна версія: 1 фото + шматок наступного
     @media (max-width: 639px) {
-      width: 80%;
+      width: calc(100vw - 60px);
     }
 
-    // Планшетна версія: 2 фото + шматок третього
     @media (min-width: 640px) and (max-width: 1023px) {
-      // (екран - бічні відступи 68px - зазор gap 16px - шматок третьої фотки 60px) / 2
-      width: calc((100% - 68px - 16px - 60px) / 2);
+      width: calc((100vw - 68px - 16px - 60px) / 2);
     }
 
-    // Десктопна версія (Ідеальний розподіл 4 + 8 та 8 + 4)
+    // Розподіл фотографій по сітці на десктопі
     &--photo-1 {
       @include on-desktop {
         display: flex;
         grid-area: 1 / 1 / 1 / 5;
-        width: auto !important;
+        width: auto !important; // Передаємо керування шириною Grid-сітці
       }
     }
 
@@ -129,7 +127,6 @@
 
     &--photo-5 {
       @include on-desktop {
-        // Ховаємо п'яте фото на десктопі, бо сітка вже заповнена
         display: none !important;
       }
     }
@@ -150,12 +147,10 @@
       grid-column: 3 / 5;
     }
 
-    // ХОВАЄМО КРУЖЕЧКИ: на ноутбуках та десктопах (екрани від 1024px і більше)
     @media (min-width: 1024px) {
       display: none !important;
     }
 
-    // Перетворюємо контейнер на флексбокс для мобільних/планшетів
     display: flex;
     justify-content: center;
     align-items: center;

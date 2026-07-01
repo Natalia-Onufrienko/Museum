@@ -32,8 +32,6 @@
 
   @include on-desktop {
     --columns: 12;
-
-    column-gap: 30px;
   }
 }
 
@@ -46,6 +44,7 @@
 
   @include on-desktop {
     padding-inline: 55px;
+
     margin-inline: auto;
   }
 }
