@@ -1,7 +1,6 @@
 .gallery {
   // 💡 ПРИБРАЛИ @include page-grid звідси, бо галерея вже лежить всередині .page__content!
   grid-column: 1 / -1; // Розтягуємо секцію галереї на всі 12 колонок сайту
-  max-width: $max-content-width;
   margin-inline: auto; // Центруємо галерею, якщо екран більший за макет
   margin-bottom: 100px;
 
