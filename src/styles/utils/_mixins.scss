@@ -37,19 +37,6 @@
   }
 }
 
-@include on-desktop {
-  --columns: 12;
-
-  // 💡 ФІКСУЄМО десктоп: кожна колонка строго максимум 70px
-  grid-template-columns: repeat(var(--columns), minmax(0, 70px));
-
-  // 💡 Додаємо проміжок 30px, який ви вказали для десктопу
-  column-gap: 30px;
-
-  // 💡 Центруємо сітку, щоб вона не притискалася до лівого краю на великих моніторах
-  justify-content: center;
-}
-
 @mixin content-padding-inline {
   padding-inline: 20px;
 
@@ -59,7 +46,6 @@
 
   @include on-desktop {
     padding-inline: 55px;
-
     margin-inline: auto;
   }
 }
