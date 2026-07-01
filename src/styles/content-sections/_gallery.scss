@@ -91,12 +91,17 @@
       width: calc((100vw - 68px - 16px - 60px) / 2);
     }
 
-    // Розподіл фотографій по сітці на десктопі
+    // Десктопна версія (Ідеальний розподіл 4 + 8 та 8 + 4)
     &--photo-1 {
       @include on-desktop {
         display: flex;
         grid-area: 1 / 1 / 1 / 5;
-        width: auto !important; // Передаємо керування шириною Grid-сітці
+        width: auto !important;
+
+        // 💡 1 фото: обрізається по верхньому краю (дівчина з головою)
+        .gallery__img {
+          object-position: center top;
+        }
       }
     }
 
@@ -105,6 +110,11 @@
         display: flex;
         grid-area: 1 / 5 / 1 / -1;
         width: auto !important;
+
+        // 💡 2 фото: строго по центру
+        .gallery__img {
+          object-position: center center;
+        }
       }
     }
 
@@ -113,6 +123,11 @@
         display: flex;
         grid-area: 2 / 1 / 2 / 9;
         width: auto !important;
+
+        // 💡 3 фото: обрізається по верхньому краю
+        .gallery__img {
+          object-position: center center;
+        }
       }
     }
 
@@ -121,6 +136,11 @@
         display: flex;
         grid-area: 2 / 9 / 2 / -1;
         width: auto !important;
+
+        // 💡 4 photo: строго по центру
+        .gallery__img {
+          object-position: center bottom;
+        }
       }
     }
 
