@@ -21,9 +21,7 @@
   --columns: 2;
 
   display: grid;
-
-  // На мобільці: колонки розтягуються, але не більше ніж потрібно
-  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--columns), 1fr);
   column-gap: 20px;
 
   @include on-tablet {
@@ -35,15 +33,21 @@
   @include on-desktop {
     --columns: 12;
 
-    // 💡 ФІКСУЄМО десктоп: кожна колонка строго максимум 70px
-    grid-template-columns: repeat(var(--columns), minmax(0, 70px));
-
-    // 💡 Додаємо проміжок 30px, який ви вказали для десктопу
     column-gap: 30px;
-
-    // 💡 Центруємо сітку, щоб вона не притискалася до лівого краю на великих моніторах
-    justify-content: center;
   }
+}
+
+@include on-desktop {
+  --columns: 12;
+
+  // 💡 ФІКСУЄМО десктоп: кожна колонка строго максимум 70px
+  grid-template-columns: repeat(var(--columns), minmax(0, 70px));
+
+  // 💡 Додаємо проміжок 30px, який ви вказали для десктопу
+  column-gap: 30px;
+
+  // 💡 Центруємо сітку, щоб вона не притискалася до лівого краю на великих моніторах
+  justify-content: center;
 }
 
 @mixin content-padding-inline {

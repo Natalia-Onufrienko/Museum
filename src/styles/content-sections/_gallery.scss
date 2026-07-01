@@ -50,17 +50,16 @@
       }
     }
 
-    // Десктоп
     @include on-desktop {
-      @include page-grid; // 💡 Просто викликаємо ваш ідеальний міксин! Він сам зробить 12 колонок по 70px
-
+      display: grid;
       grid-column: 1 / -1;
       margin-top: 56px;
       margin-inline: 0;
-      width: 100%; // 💡 Ставимо 100%, щоб він розтягнувся на всю ширину батьківської сітки
+      width: 100%; // 💡 Розтягуємо на всі 12 колонок батька від краю до краю
 
+      grid-template-columns: repeat(12, 1fr); // 💡 Створюємо чисті 12 колонок
       grid-template-rows: 600px 360px;
-      row-gap: 30px;
+      gap: 30px;
     }
   }
 
