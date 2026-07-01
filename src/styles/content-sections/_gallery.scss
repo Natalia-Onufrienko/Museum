@@ -52,12 +52,12 @@
 
     // Десктоп
     @include on-desktop {
-      @include page-grid;
+      @include page-grid; // 💡 Просто викликаємо ваш ідеальний міксин! Він сам зробить 12 колонок по 70px
 
+      grid-column: 1 / -1;
       margin-top: 56px;
-      margin-inline: 0; // СКИДАЄМО негативні марджини планшету
-      width: 100%; // РОЗТЯГУЄМО на всю ширину
-      grid-template-columns: repeat(12, 1fr);
+      margin-inline: 0;
+      width: 100%; // 💡 Ставимо 100%, щоб він розтягнувся на всю ширину батьківської сітки
 
       grid-template-rows: 600px 360px;
       row-gap: 30px;
